@@ -1,5 +1,6 @@
 package com.example.elasticsearchstudy
 
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -8,7 +9,7 @@ class PhoneService(
     private val phoneRepository: PhoneRepository,
     private val searchPhoneRepository: SearchPhoneRepository,
 ) {
-    fun save(
+    fun saveOne(
         request: PhoneRequest,
     ) {
         val phone = phoneRepository.save(
@@ -24,13 +25,13 @@ class PhoneService(
         searchPhoneRepository.save(searchPhone)
     }
 
-    fun findBy(
+    fun findOneBy(
         number: String,
     ) =
         searchPhoneRepository.findByNumber(number)
             ?: throw IllegalArgumentException("Phone not found by number: $number")
 
-    fun findBy(
+    fun findOneBy(
         id: PhoneId,
     ) =
         phoneRepository.findByIdOrNull(id)
@@ -39,7 +40,12 @@ class PhoneService(
     fun findAll() =
         phoneRepository.findAll().toList()
 
-    fun deleteBy(
+    fun findAllBy(
+        pageable: Pageable,
+    ) =
+        phoneRepository.findAll(pageable)
+
+    fun deleteOneBy(
         id: PhoneId,
     ) =
         phoneRepository.deleteById(id)

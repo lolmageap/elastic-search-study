@@ -10,13 +10,13 @@ class PhoneController(
     fun save(
         @RequestBody phone: PhoneRequest,
     ) =
-        phoneService.save(phone)
+        phoneService.saveOne(phone)
 
     @GetMapping("/phone/{id}")
     fun findBy(
         @PathVariable id: PhoneId,
     ) =
-        phoneService.findBy(id)
+        phoneService.findOneBy(id)
 
     @GetMapping("/phone")
     fun findAll() =
@@ -26,5 +26,5 @@ class PhoneController(
     fun deleteBy(
         @PathVariable id: PhoneId,
     ) =
-        phoneService.deleteBy(id)
+        phoneService.deleteOneBy(id)
 }
