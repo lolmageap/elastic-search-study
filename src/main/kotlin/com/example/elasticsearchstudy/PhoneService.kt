@@ -9,7 +9,7 @@ class PhoneService(
     private val phoneRepository: PhoneRepository,
     private val searchPhoneRepository: SearchPhoneRepository,
 ) {
-    fun saveOne(
+    fun createBy(
         request: PhoneRequest,
     ) {
         val phone = phoneRepository.save(
@@ -25,7 +25,7 @@ class PhoneService(
         searchPhoneRepository.save(searchPhone)
     }
 
-    fun saveAll(
+    fun createBy(
         requests: List<Phone>,
     ) {
         val phones = phoneRepository.saveAll(requests)
@@ -41,28 +41,28 @@ class PhoneService(
         searchPhoneRepository.saveAll(searchPhones)
     }
 
-    fun findAllBy(
+    fun getAllBy(
         number: String,
     ): List<Phone> {
         val phoneIds = searchPhoneRepository.findAllByNumberContainingIgnoreCase(number).map { it.id }
         return phoneRepository.findAllById(phoneIds)
     }
 
-    fun findAllBy(
+    operator fun get(
         id: PhoneId,
     ) =
         phoneRepository.findByIdOrNull(id)
             ?: throw IllegalArgumentException("Phone not found by id: $id")
 
-    fun findAll() =
+    fun getAll() =
         phoneRepository.findAll().toList()
 
-    fun findAllBy(
+    fun getAllBy(
         pageable: Pageable,
     ) =
         phoneRepository.findAll(pageable)
 
-    fun deleteOneBy(
+    fun removeBy(
         id: PhoneId,
     ) =
         phoneRepository.deleteById(id)

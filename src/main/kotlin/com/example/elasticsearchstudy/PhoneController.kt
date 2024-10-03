@@ -7,24 +7,24 @@ class PhoneController(
     private val phoneService: PhoneService,
 ) {
     @PostMapping("/phone")
-    fun save(
+    fun post(
         @RequestBody phone: PhoneRequest,
     ) =
-        phoneService.saveOne(phone)
+        phoneService.createBy(phone)
 
     @GetMapping("/phone/{id}")
-    fun findBy(
+    fun get(
         @PathVariable id: PhoneId,
     ) =
-        phoneService.findAllBy(id)
+        phoneService[id]
 
     @GetMapping("/phone")
-    fun findAll() =
-        phoneService.findAll()
+    fun get() =
+        phoneService.getAll()
 
     @DeleteMapping("/phone/{id}")
-    fun deleteBy(
+    fun delete(
         @PathVariable id: PhoneId,
     ) =
-        phoneService.deleteOneBy(id)
+        phoneService.removeBy(id)
 }

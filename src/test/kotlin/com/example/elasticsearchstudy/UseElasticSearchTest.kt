@@ -42,7 +42,7 @@ class UseElasticSearchTest(
             }.value
 
         measureTimeMillis {
-            phoneService.saveAll(posts)
+            phoneService.createBy(posts)
         }.apply {
             println("Insertion time: $this ms")
         }
@@ -50,7 +50,7 @@ class UseElasticSearchTest(
 
     "엘라스틱 서치를 사용해서 데이터를 조회하고 성능을 측정한다." {
         measureTimeMillis {
-            phoneService.findAllBy("hello")
+            phoneService.getAllBy("hello")
         }.apply {
             println("Search time: $this ms")
         }
