@@ -25,13 +25,30 @@ class PhoneService(
         searchPhoneRepository.save(searchPhone)
     }
 
-    fun findOneBy(
-        number: String,
-    ) =
-        searchPhoneRepository.findByNumber(number)
-            ?: throw IllegalArgumentException("Phone not found by number: $number")
+    fun saveAll(
+        requests: List<Phone>,
+    ) {
+        val phones = phoneRepository.saveAll(requests)
 
-    fun findOneBy(
+        val searchPhones = phones.map {
+            SearchPhone(
+                id = it.id,
+                number = it.number,
+                author = it.author,
+            )
+        }
+
+        searchPhoneRepository.saveAll(searchPhones)
+    }
+
+    fun findAllBy(
+        number: String,
+    ): List<Phone> {
+        val phoneIds = searchPhoneRepository.findAllByNumberContainingIgnoreCase(number).map { it.id }
+        return phoneRepository.findAllById(phoneIds)
+    }
+
+    fun findAllBy(
         id: PhoneId,
     ) =
         phoneRepository.findByIdOrNull(id)

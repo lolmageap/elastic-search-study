@@ -16,7 +16,7 @@ class PhoneController(
     fun findBy(
         @PathVariable id: PhoneId,
     ) =
-        phoneService.findOneBy(id)
+        phoneService.findAllBy(id)
 
     @GetMapping("/phone")
     fun findAll() =
