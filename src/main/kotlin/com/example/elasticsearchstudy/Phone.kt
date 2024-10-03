@@ -5,13 +5,16 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import org.springframework.data.elasticsearch.annotations.Document
+import java.time.LocalDate
 
 @Entity
 data class Phone(
     val number: String,
     val author: String,
+    val createdDate: LocalDate = LocalDate.now(),
 ) {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: PhoneId = PhoneId.NONE
 }
 
